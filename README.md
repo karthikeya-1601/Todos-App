@@ -1,40 +1,47 @@
-# To-Do List Application
 
-This is a simple To-Do List application built with HTML, CSS, and JavaScript. The app allows users to add, delete, and mark tasks as completed. It also stores the to-do list in the browser's local storage, so the list is saved even after the page is refreshed.
+This project is a simple to-do list application that allows users to add, delete, and mark tasks as completed. The tasks are stored locally using the browser's `localStorage`, ensuring that the list persists even after the page is refreshed.
 
 ## Features
 
-- **Add To-Do**: Users can add new tasks to the list by typing in the input field and clicking the "Add" button.
-- **Mark as Completed**: Users can mark a task as completed by clicking the checkbox next to the task. The task text is then visually marked with a strikethrough.
-- **Delete To-Do**: Users can delete a task by clicking the trash icon next to the task.
-- **Persistent Storage**: The to-do list is saved in the browser's local storage, so the list remains even if the user closes the browser or refreshes the page.
+- **Add Tasks:** Users can add a new task to the list.
+- **Delete Tasks:** Users can remove tasks from the list.
+- **Mark as Complete:** Users can mark tasks as completed, which toggles a visual indication (e.g., strikethrough).
+- **Persistent Storage:** The to-do list is saved in `localStorage`, so it persists across page reloads.
+
+## Technologies Used
+
+- **HTML:** The structure of the application.
+- **CSS:** Basic styling for the to-do list and buttons.
+- **JavaScript:** The core functionality of the app, including adding, deleting, and managing tasks, as well as interacting with `localStorage`.
 
 ## Code Overview
 
-### HTML
+### Main Components
 
-The basic structure of the application is created using HTML. The main elements include:
+1. **HTML Structure**
+   - `todoItemsContainer`: The container where to-do items are appended.
+   - `addTodoButton`: The button to add a new to-do item.
+   - `saveTodoButton`: The button to save the current state of the to-do list.
 
-- An input field for users to type their tasks.
-- "Add" and "Save" buttons for adding tasks and saving the list to local storage.
+2. **JavaScript Functions**
+   - **`getTodoListFromLocalStorage()`**: Fetches the to-do list from `localStorage`. If no list is found, it returns an empty array.
+   - **`onAddTodo()`**: Handles the addition of a new to-do item. It creates a new to-do object, appends it to the list, and updates the UI.
+   - **`onTodoStatusChange(checkboxId, labelId, todoId)`**: Toggles the completion status of a to-do item.
+   - **`onDeleteTodo(todoId)`**: Deletes a to-do item from the list and updates the UI.
+   - **`createAndAppendTodo()`**: Dynamically creates and appends a to-do item to the DOM.
 
-### CSS
+3. **Event Listeners**
+   - The `addTodoButton` is tied to the `onAddTodo()` function, allowing users to add tasks.
+   - The `saveTodoButton` is tied to saving the current state of the list to `localStorage`.
 
-Styling is handled by an external CSS file (not included in this code snippet). It includes styles for:
+### Initial Load
 
-- The layout and appearance of the to-do list.
-- Visual indicators for completed tasks (e.g., strikethrough for text).
-- A responsive design that adapts to different screen sizes.
+Upon loading the app, the `getTodoListFromLocalStorage()` function is called to populate the to-do list from `localStorage`. Each item is rendered using the `createAndAppendTodo()` function.
 
-### JavaScript
+## How to Use
 
-The main functionality of the app is implemented in JavaScript. Key components include:
+1. **Add a Task:** Type a task into the input field and click "Add Todo".
+2. **Mark as Complete:** Click the checkbox next to a task to mark it as complete.
+3. **Delete a Task:** Click the trash icon next to a task to delete it.
+4. **Save Tasks:** Click the "Save Todo" button to save the current state of the to-do list.
 
-#### 1. Getting To-Do List from Local Storage
-
-```javascript
-function getTodoListFromLocalStorage() {
-    let stringifiedTodoList = localStorage.getItem("todoList");
-    let parsedTodoList = JSON.parse(stringifiedTodoList);
-    return parsedTodoList === null ? [] : parsedTodoList;
-}
